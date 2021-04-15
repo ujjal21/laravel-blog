@@ -41,4 +41,4 @@ Route::prefix('post')->middleware('auth')->name('post.')->group(function (){
 
 Route::get('/post/posts','PostController@posts')->name('post.posts');
 
-route
+abc
