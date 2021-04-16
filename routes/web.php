@@ -39,6 +39,6 @@ Route::prefix('post')->middleware('auth')->name('post.')->group(function (){
     Route::get('/delete/{post}','PostController@delete')->name('delete');
 });
 
-Route::get('/post/posts','PostController@posts')->name('post.posts');
+Route::get('/post/posts','PostController@posts')->name('post.posts'); // Put inside the post group
 
 abc
