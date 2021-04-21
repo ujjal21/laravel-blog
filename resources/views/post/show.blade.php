@@ -7,8 +7,10 @@
 @section('content')
     <h3> Post/show record </h3>
     <p>
+        NAME:{{$data->name}} <br>
+        EMAIL:{{$data->email}} <br>
+        PASSWORD:{{$data->password}} <br>
        
-       admin
     
     
     </p>

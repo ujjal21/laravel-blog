@@ -5,7 +5,8 @@
  @endsection
 
 @section('content')
-    <h3> Signup </h3>
+    <h3> Signup | <a href="{{route('login')}}"> Login</a> </h3>
+
 
 
     <form action="{{route('signup')}}" method="POST">
@@ -24,7 +25,6 @@
 
 
     <button type="submit"> submit</button>
-    <a href="http://127.0.0.1:8000/admin/posts">Back</a>
  
    </form> 
 @endsection

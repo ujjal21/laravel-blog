@@ -14,17 +14,24 @@ use Illuminate\Support\Facades\Route;
 */
 
 
+Route::prefix('admin')->middleware('admin')->name('admin.')->group(function (){
+Route::get('/admin',"HomeController@admin")->name('admin');
+Route::get('/users',"HomeController@users")->name('users');
+//Route::post('/users',"HomeController@admin")->name('admin');
+
+   
+});
+
 Route::get('/signup',"HomeController@signup")->name('signup');
-Route::post('/signup',"HomeController@register")
-;
+Route::post('/signup',"HomeController@register");
 Route::get('/login',"HomeController@login")->name('login');
 Route::post('/login',"HomeController@postlogin" );
 
 Route::get('/logout',"HomeController@logout")->name('logout');
 Route::get('/home',"HomeController@home")->name('home')->middleware('auth');
 
-Route::get('/create',"HomeController@home")->name('create');
-Route::post('/create',"HomeController@home")->name('home')->middleware('auth');
+//Route::get('/create',"HomeController@home")->name('create');
+//Route::post('/create',"HomeController@home")->name('home')->middleware('auth');
 
 Route::get('/home',"HomeController@home")->name('home')->middleware('auth');
 
@@ -41,4 +48,3 @@ Route::prefix('post')->middleware('auth')->name('post.')->group(function (){
 
 Route::get('/post/posts','PostController@posts')->name('post.posts'); // Put inside the post group
 
-abc

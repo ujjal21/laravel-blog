@@ -5,7 +5,7 @@
  @endsection
 
 @section('content')
-    <h3> Login </h3>
+    <h3> Login | <a href="{{route('signup')}}"> Signup</a> </h3>
 
 
     <form action="{{route('login')}}" method="POST">

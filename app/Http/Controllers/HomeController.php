@@ -40,23 +40,42 @@ class HomeController extends Controller
         return view('admin.posts.home');
     }
 
-    public function postlogin(Request $req){
-       $a=$req->only('email','password');
+    public function postlogin(Request $request)
+    {
+       $credentials=$request->only('email','password');
 
-       if(Auth::attempt($a)){
+         if(Auth::attempt($credentials)){
 
-        return redirect()->intended('');
+                                // return redirect()->intended('');
+                                // return  redirect()->route('post.posts');
+
+         if(Auth::User()->adnin == 'admin') {
+            return  redirect()->route('admin.admin');
+
+                   }else{}
+
+                   return  redirect()->route('post.posts');
 
        }else{
 
        
-        
-        return  redirect()->route('home');
+        //return  redirect()->route('post.posts');
+        //return  redirect()->route('home');
+        return  redirect()->route('login');
     }}
 
     public function logout(){
 
         Auth::logout();
-        return  redirect()->route('login');
+        return  redirect()->route('post.posts');
+    }
+
+    public function admin(){
+        return view('admin.posts.admin');
+    }
+    public function users(){
+
+        $users = User::paginate(10);
+        return view('admin.posts.usertable',['users'=>$users]);
     }
 }

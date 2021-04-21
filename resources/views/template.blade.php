@@ -19,17 +19,28 @@
 
 <body>
 
-<header style="color: #082d4a;border: 3px solid black;background-color: #e8b2b2;">  <h1><center> HEAD...... </h1> </center> </header>
+<header style="color: #082d4a;border: 3px solid black;background-color: #e8b2b2;">  <h1><center> HEAD...... </h1> </center> 
 
 
-<center>  <nav> 
-        <a href="">HTML1</a>
-        <a href="">HTML2</a>
-        <a href="">HTML3</a>
-        <a href="">HTML4</a>
-     </nav>
-</center>
+    <center><nav style="    display: inline-flex;"> 
 
+        @if (Route::has('login'))
+        <div class="top-right links">
+            @auth
+                <a href="{{ route('logout') }}">LOGOUT</a>
+            @else
+                <a href="{{ route('login') }}">Login</a>
+
+                @if (Route::has('signup'))
+                    <a href="{{ route('signup') }}">Register</a>
+                @endif
+            @endauth
+        </div>
+    @endif
+
+        </nav>
+    </center>
+</header>
      <section style="height: 380px;">     
     <h5> ----------------Dynamic--------------- </h5>
 

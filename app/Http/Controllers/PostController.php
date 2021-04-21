@@ -44,32 +44,57 @@ class PostController extends Controller
     public function posts()
     {
 
-        // $posts = Post::where('privacy','=','login') 
 
         $posts = Post::where('privacy','=','public'); // Public post is visible to everyone, no need to add condition for it
-        if(!Auth::user())
+
+        if(Auth::user())
         {
-            // $posts = Post::where('privacy','=','public')
-            // ->get() // Get at the end of function
-            // ;
-            // return view('post.all_post',['posts' => $posts]); //  // Return Only once, at the end of function
+                    if(Auth::user()->adnin == 'admin')
+                    {
+                        $posts = Post::where('privacy','=','private')
+                                    ->orwhere('privacy','=','login')
+                                    ->orwhere('privacy','=','public');
+            
+                    }else{ 
 
-        }else{
+                    $posts = Post::where('user_id',Auth::User()->id)
+                            ->orwhere('privacy','=','login')
+                            ->orwhere('privacy','=','public');
 
-            $posts = Post::where('user_id',Auth::User()->id)
-            ->orwhere('privacy','=','login') 
-            // ->orwhere('privacy','=','public')  // Already added above
-            // ->get() // Get at the end of function
-            ;
-            // return view('post.all_post',['posts' => $posts]); // Return Only once, at the end of function
+        }}
+      
+
+        //$posts = $posts->get(); // Get the posts
+        $posts = $posts->paginate(10); // Get the posts
 
 
-        }
-
-        $posts = $posts->get(); // Get the posts
         return view('post.all_post',['posts' => $posts]);
 
         
+      }
+      public function edit(Post $post)
+      {
+        
+        return view('post.edit',['post'=>$post]);
+      }
+
+      
+      public function update(Request $request,Post $post)
+      {
+          
+        validator::make($request->all(),[
+            'privacy'=>'required',
+            'title'=>'required',
+            'body'=>'required'
+                 ])->validate();
+
+        $post->privacy = $request->privacy;
+        $post->title = $request->title;
+        $post->body = $request->body;
+        $post->save();
+
+        return redirect()->back()->with('update','data update successfully');
+        //return view('post.edit',['post'=>$post]);
       }
 
 }

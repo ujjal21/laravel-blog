@@ -5,8 +5,16 @@
  @endsection {{-- Always maintain allignment --}}
 
 @section('content')
-  <h3> Post | <a href="{{route('post.add')}}">New Record</a> </h3>
-
+  <h3> Post |
+            @if(auth()->user())
+            
+            <a href="{{route('post.add')}}">New Record</a> 
+            
+            @else
+            <a href="{{route('login')}}">LOGIN</a>
+            @endif
+            
+           </h3>
   <div class="container">
 
     <table class="table table-dark table-hover" style="border:2px solid blue;">
@@ -24,26 +32,36 @@
     @foreach($posts as $post)
     @php($no++)
     <tr> {{--  Where does it end? --}}
-      <td>{{$no}}</td> {{-- Always maintain allignment --}}
+        <td>{{$no}}</td> {{-- Always maintain allignment --}}
         <td>{{$post->title}}</td>
         <td>{{$post->body}}</td>
         <td style="color: rgb(35, 160, 233)">{{$post->privacy}}</td>
-       
+    
   
         <td>
-          @if (auth()->user() && auth()->user()->id == $post->user_id)
-            <a  href="{{route('post.edit',['post'=>$post])}}" class="text-success" > Edit</a>
-            <a href="{{route('post.delete',['post'=>$post])}}" class="text-danger"> Delete</a>  
-          @endif
+           @if (auth()->user() && auth()->user()->id == $post->user_id) {{--  for user --}}
+             <a  href="{{route('post.edit',['post'=>$post])}}" class="text-success" > Edit</a>
+             <a href="{{route('post.delete',['post'=>$post])}}" class="text-danger"> Delete</a> 
+            
+            
+              @elseif  (auth()->user() && auth()->user()->adnin == 'admin') {{--  for admin --}}
+              <a  href="{{route('post.edit',['post'=>$post])}}" class="text-success" > Edit</a>
+              <a href="{{route('post.delete',['post'=>$post])}}" class="text-danger"> Delete</a>  
+         
+           @endif
           
        </td>
 	
-		
-
+      </tr> 
+             
+     
+   
 
     @endforeach
     
     </table>
   </div>
+  {{$posts->links()}}
+ 
 @endsection
    
