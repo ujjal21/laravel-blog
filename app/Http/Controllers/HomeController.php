@@ -51,8 +51,11 @@ class HomeController extends Controller
 
          if(Auth::User()->adnin == 'admin') {
             return  redirect()->route('admin.admin');
-
-                   }else{}
+         }
+         
+         if(Auth::User()->adnin == 'guest') {
+            return  redirect()->route('guest.poco'); 
+                   }else
 
                    return  redirect()->route('post.posts');
 
@@ -62,7 +65,8 @@ class HomeController extends Controller
         //return  redirect()->route('post.posts');
         //return  redirect()->route('home');
         return  redirect()->route('login');
-    }}
+    }
+    }
 
     public function logout(){
 
@@ -78,4 +82,15 @@ class HomeController extends Controller
         $users = User::paginate(10);
         return view('admin.posts.usertable',['users'=>$users]);
     }
+
+
+    public function page()
+    {
+        return view('admin.posts.page');
+    }
+    public function poco()
+    {
+        return view('guest.poco');
+    }
+
 }

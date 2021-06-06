@@ -18,7 +18,7 @@
             <br>     <br>
            Privacy: <select name="privacy" >
                
-                <option>select</option>   
+                <option></option>   
                 <option value="public">Public</option>   
                 <option value="login">Login</option>
                 <option value="private">Private</option>

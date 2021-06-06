@@ -69,6 +69,9 @@ class PostController extends Controller
 
 
         return view('post.all_post',['posts' => $posts]);
+      //  return view('post.new_all_post',['posts' => $posts]);
+        //return view('page.view',['posts' => $posts]);
+       // return view('home',['posts' => $posts]);
 
         
       }
@@ -95,6 +98,13 @@ class PostController extends Controller
 
         return redirect()->back()->with('update','data update successfully');
         //return view('post.edit',['post'=>$post]);
+      }
+
+      public function delete($id)
+      {
+        Post::where('id',$id)->delete();
+        return redirect()->back()->with('delete','data Deleted Successfully... ');
+       // return view('post.edit',['post'=>$post]);
       }
 
 }
