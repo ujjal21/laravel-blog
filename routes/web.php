@@ -13,6 +13,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('/',function(){
+    return view('welcome');
+})->name('homepage');
 
 Route::prefix('admin')->middleware('admin')->name('admin.')->group(function (){
     Route::get('/admin',"HomeController@admin")->name('admin');
